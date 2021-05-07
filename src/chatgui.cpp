@@ -131,7 +131,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
 ChatBotPanelDialog::~ChatBotPanelDialog()
 {
     // delete _chatLogic; // No need to deallocate _chatLogic if it is defined as a Unique pointer
-    std::cout << "ChatBotPlanelDialog destructor is called." << "\n";
+    // std::cout << "ChatBotPlanelDialog destructor is called." << "\n";
 }
 
 void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)
