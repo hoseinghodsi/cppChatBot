@@ -28,6 +28,7 @@ bool ChatBotApp::OnInit()
 // wxWidgets FRAME
 ChatBotFrame::ChatBotFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(width, height))
 {
+    std::cout << "Frame instance: " << this << std::endl;
     // create panel with background image
     ChatBotFrameImagePanel *ctrlPanel = new ChatBotFrameImagePanel(this);
 
@@ -64,6 +65,8 @@ void ChatBotFrame::OnEnter(wxCommandEvent &WXUNUSED(event))
     // send user text to chatbot 
      _panelDialog->GetChatLogicHandle()->SendMessageToChatbot(std::string(userText.mb_str()));
 }
+
+
 
 BEGIN_EVENT_TABLE(ChatBotFrameImagePanel, wxPanel)
 EVT_PAINT(ChatBotFrameImagePanel::paintEvent) // catch paint events
