@@ -11,7 +11,7 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
-    std::cout << "ChatBot Default Constructor - Instance " << this << std::endl;
+    std::cout << "ChatBot WITHOUT memorey allocation Constructor - Instance " << this << "\n";
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -21,7 +21,7 @@ ChatBot::ChatBot()
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor - Instance " << this << std::endl;
+    std::cout << "ChatBot WITH memorey allocation Constructor - Instance " << this << "\n\n";
     
     // invalidate data handles
     _chatLogic = nullptr;
@@ -49,8 +49,8 @@ ChatBot::~ChatBot()
 // Copy constructor
 ChatBot::ChatBot(const ChatBot &src)
 {
-    std::cout << "ChatBot Copy constructor!" << "\n";
-    std::cout << "   COPYING content of instance " << &src << " to instance " << this << "/n";
+    std::cout << "  ChatBot Copy constructor!" << "\n";
+    std::cout << "     COPYING content of instance " << &src << " to instance " << this << "\n\n";
     _image = new wxBitmap(*src._image);
     _rootNode = src._rootNode;
     _chatLogic = src._chatLogic;
@@ -59,8 +59,8 @@ ChatBot::ChatBot(const ChatBot &src)
 // Copy assignment constructor
 ChatBot &ChatBot::operator=(const ChatBot &src)
 {
-    std::cout << "ChatBot Copy assignment constructor!" << "\n";
-    std::cout << "   COPYING (assiging) content of instance " << &src << " to instance " << this << "/n";
+    std::cout << "  ChatBot Copy assignment constructor!" << "\n";
+    std::cout << "     COPYING (assiging) content of instance " << &src << " to instance " << this << "\n\n";
     
     if (this == &src)
         return *this;
@@ -69,6 +69,7 @@ ChatBot &ChatBot::operator=(const ChatBot &src)
     _image = new wxBitmap(*src._image);
     _rootNode = src._rootNode;
     _chatLogic = src._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
 
     return *this;
 }
@@ -76,13 +77,15 @@ ChatBot &ChatBot::operator=(const ChatBot &src)
 // Move constructor
 ChatBot::ChatBot(ChatBot &&src)
 {
-    std::cout << "ChatBot Move constructor!" << "\n";
-    std::cout << "   MOVING instance " << &src << " to instance " << this << "\n";
+    std::cout << "  ChatBot Move constructor!" << "\n";
+    std::cout << "     MOVING instance " << &src << " to instance " << this << "\n\n";
     
     // Transferring the ownershi
-    _image = src._image;
+    // _image = src._image;
+    _image = new wxBitmap(*src._image);
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
+    _chatLogic->SetChatbotHandle(this);
     // Eliminating the source
     src._image = nullptr;
     src._chatLogic = nullptr;
@@ -92,21 +95,24 @@ ChatBot::ChatBot(ChatBot &&src)
 // Move assignment constructor
 ChatBot &ChatBot::operator=(ChatBot &&src)
 {
-    std::cout << "ChatBot Move constructor!" << "\n";
-    std::cout << "   MOVING (assigning) instance " << &src << " to instance " << this << "\n";
+    std::cout << "  ChatBot Move constructor!" << "\n";
+    std::cout << "     MOVING (assigning) instance " << &src << " to instance " << this << "\n\n";
     
     if (this == &src) 
         return *this;
     delete _image;    
 
     // Transferring the ownershi
-    _image = src._image;
+    _image = new wxBitmap(*src._image);
+    //_currentNode = src._rootNode;
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
+    _chatLogic->SetChatbotHandle(this);
+
     // Eliminating the source
     src._image = nullptr;
     src._chatLogic = nullptr;
-    src._rootNode = nullptr;    
+    src._rootNode = nullptr;   
 
     return *this;
 }
