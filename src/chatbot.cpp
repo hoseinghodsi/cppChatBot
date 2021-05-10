@@ -81,8 +81,7 @@ ChatBot::ChatBot(ChatBot &&src)
     std::cout << "     MOVING instance " << &src << " to instance " << this << "\n\n";
     
     // Transferring the ownershi
-    // _image = src._image;
-    _image = new wxBitmap(*src._image);
+    _image = src._image;
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
     _chatLogic->SetChatbotHandle(this);
@@ -103,8 +102,7 @@ ChatBot &ChatBot::operator=(ChatBot &&src)
     delete _image;    
 
     // Transferring the ownershi
-    _image = new wxBitmap(*src._image);
-    //_currentNode = src._rootNode;
+    _image = src._image;
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
     _chatLogic->SetChatbotHandle(this);
